@@ -123,35 +123,33 @@
     <!-- Gallery images will be injected here by script -->
   </div>
   <script>
-    // Danh sách ảnh lấy từ thư mục post/images (tên file lấy từ server hoặc build script)
-    const imageList = [
-      "post/images/text2 pots.png",
-      "post/images/text2 pots - Sao chép.png",
-      "post/images/text2 pots - Sao chép (2).png",
-      "post/images/text2 pots - Sao chép (3).png"
-    ];
+fetch('images.json')
+  .then(res => res.json())
+  .then(images => {
     const gallery = document.getElementById('gallery');
-    imageList.forEach(src => {
+    images.forEach(filename => {
+      const src = 'post/images/' + filename;
       const div = document.createElement('div');
       div.className = 'gallery-item';
       const img = document.createElement('img');
       img.src = src;
-      img.alt = src.split('/').pop();
+      img.alt = filename;
       div.appendChild(img);
       gallery.appendChild(div);
     });
-    // Zoom overlay giữ nguyên
-    document.addEventListener('click', function(e) {
-      if (e.target.matches('.gallery-item img')) {
-        const overlay = document.createElement('div');
-        overlay.className = 'zoom-overlay';
-        const zoomedImg = document.createElement('img');
-        zoomedImg.src = e.target.src;
-        overlay.appendChild(zoomedImg);
-        overlay.addEventListener('click', () => overlay.remove());
-        document.body.appendChild(overlay);
-      }
-    });
+  });
+
+document.addEventListener('click', function(e) {
+  if (e.target.matches('.gallery-item img')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'zoom-overlay';
+    const zoomedImg = document.createElement('img');
+    zoomedImg.src = e.target.src;
+    overlay.appendChild(zoomedImg);
+    overlay.addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+  }
+});
   </script>
   <!-- Hết gallery động -->
 
