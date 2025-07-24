@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Text2 post</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0e0f11;
+      --accent: #00ffd0;
+      --text: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 40px 0 10px;
+      font-size: 2.3rem;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    p.subtitle {
+      margin-bottom: 30px;
+      font-size: 1rem;
+      color: #aaa;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      width: 92%;
+      max-width: 1300px;
+      padding-bottom: 60px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      transition: transform 0.4s ease;
+    }
+
+    /* ZOOM OVERLAY STYLE */
+    .zoom-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .zoom-overlay img {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0,255,208,0.2);
+      animation: scaleIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📄 Text2 Article Snapshots</h1>
+  <p class="subtitle">Touch or click any image to view full size</p>
+
+  <div class="gallery">
+    <div class="gallery-item"><img src="img/article-1.jpg" alt="Article 1"></div>
+    <div class="gallery-item"><img src="img/article-2.jpg" alt="Article 2"></div>
+    <div class="gallery-item"><img src="img/article-3.jpg" alt="Article 3"></div>
+    <div class="gallery-item"><img src="img/article-4.jpg" alt="Article 4"></div>
+    <div class="gallery-item"><img src="img/article-5.jpg" alt="Article 5"></div>
+    <!-- Add more as needed -->
+  </div>
+
+  <footer>
+    &copy; 2025 Text2 Technology. All rights reserved.
+  </footer>
+
+  <script>
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        const overlay = document.createElement('div');
+        overlay.className = 'zoom-overlay';
+        const zoomedImg = document.createElement('img');
+        zoomedImg.src = img.src;
+        overlay.appendChild(zoomedImg);
+
+        overlay.addEventListener('click', () => {
+          overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      });
+    });
+  </script>
+
+</body>
+</html>
