@@ -119,36 +119,45 @@
   <h1>📄 Text2 Article Snapshots</h1>
   <p class="subtitle">Touch or click any image to view full size</p>
 
-  <div class="gallery">
-    <div class="gallery-item"><img src="img/article-1.jpg" alt="Ảnh chụp bài viết 1 - Text2 Technology" /></div>
-    <div class="gallery-item"><img src="img/article-2.jpg" alt="Ảnh chụp bài viết 2 - Text2 Technology" /></div>
-    <div class="gallery-item"><img src="img/article-3.jpg" alt="Ảnh chụp bài viết 3 - Text2 Technology" /></div>
-    <div class="gallery-item"><img src="img/article-4.jpg" alt="Ảnh chụp bài viết 4 - Text2 Technology" /></div>
-    <div class="gallery-item"><img src="img/article-5.jpg" alt="Ảnh chụp bài viết 5 - Text2 Technology" /></div>
-    <!-- Add more as needed -->
+  <div class="gallery" id="gallery">
+    <!-- Gallery images will be injected here by script -->
   </div>
+  <script>
+    // Danh sách ảnh lấy từ thư mục post/images (tên file lấy từ server hoặc build script)
+    const imageList = [
+      "post/images/text2 pots.png",
+      "post/images/text2 pots - Sao chép.png",
+      "post/images/text2 pots - Sao chép (2).png",
+      "post/images/text2 pots - Sao chép (3).png"
+    ];
+    const gallery = document.getElementById('gallery');
+    imageList.forEach(src => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = src.split('/').pop();
+      div.appendChild(img);
+      gallery.appendChild(div);
+    });
+    // Zoom overlay giữ nguyên
+    document.addEventListener('click', function(e) {
+      if (e.target.matches('.gallery-item img')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'zoom-overlay';
+        const zoomedImg = document.createElement('img');
+        zoomedImg.src = e.target.src;
+        overlay.appendChild(zoomedImg);
+        overlay.addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+      }
+    });
+  </script>
+  <!-- Hết gallery động -->
 
   <footer>
     &copy; 2025 Text2 Technology. All rights reserved.
   </footer>
-
-  <script>
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        const overlay = document.createElement('div');
-        overlay.className = 'zoom-overlay';
-        const zoomedImg = document.createElement('img');
-        zoomedImg.src = img.src;
-        overlay.appendChild(zoomedImg);
-
-        overlay.addEventListener('click', () => {
-          overlay.remove();
-        });
-
-        document.body.appendChild(overlay);
-      });
-    });
-  </script>
 
 </body>
 </html>
