@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Detector Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #000000 0%, #0c0c0c 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffcc;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 20px;
+      font-size: 2.2rem;
+      background-color: rgba(0, 255, 200, 0.1);
+      border-bottom: 1px solid #00ffcc55;
+    }
+
+    #temperature {
+      font-size: 3.5rem;
+      margin-top: 80px;
+      transition: color 0.3s ease;
+    }
+
+    #alert {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: black;
+      border: 4px solid red;
+      padding: 30px 50px;
+      font-size: 2rem;
+      color: red;
+      display: none;
+      z-index: 999;
+      animation: pulse 1s infinite;
+    }
+
+    #flash {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 0, 0, 0.4);
+      top: 0;
+      left: 0;
+      display: none;
+      z-index: 998;
+    }
+
+    #ghostImage {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://i.imgur.com/6o0FvU7.png') center center no-repeat;
+      background-size: cover;
+      z-index: 1000;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>👁️ Ghost Detector Pro</header>
+  <div id="temperature">Spiritual Energy: 22.7°C</div>
+  <div id="alert">⚠️ PARANORMAL ENTITY DETECTED!</div>
+  <div id="flash"></div>
+  <div id="ghostImage"></div>
+
+  <audio id="sound1" src="https://www.fesliyanstudios.com/play-mp3/4383" preload="auto"></audio>
+  <audio id="scream" src="https://www.soundjay.com/human/sounds/scream-01.mp3" preload="auto"></audio>
+
+  <script>
+    const tempEl = document.getElementById("temperature");
+    const alertBox = document.getElementById("alert");
+    const flash = document.getElementById("flash");
+    const ghostImage = document.getElementById("ghostImage");
+    const sound1 = document.getElementById("sound1");
+    const scream = document.getElementById("scream");
+
+    function randomTemp() {
+      const variation = (Math.random() - 0.5) * 10;
+      return (22 + variation).toFixed(1);
+    }
+
+    function triggerGhostEffect() {
+      flash.style.display = "block";
+      ghostImage.style.display = "block";
+      alertBox.style.display = "block";
+      sound1.play();
+      scream.play();
+      navigator.vibrate?.([500, 200, 500]);
+
+      setTimeout(() => {
+        flash.style.display = "none";
+        ghostImage.style.display = "none";
+        alertBox.style.display = "none";
+      }, 2500);
+    }
+
+    setInterval(() => {
+      const temp = randomTemp();
+      tempEl.textContent = `Spiritual Energy: ${temp}°C`;
+
+      if (Math.random() < 0.18) {
+        triggerGhostEffect();
+      }
+    }, 3000);
+  </script>
+
+</body>
+</html>
